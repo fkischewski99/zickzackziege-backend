@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/fkischewski99/zickzackziege-backend#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "consolidate": "^0.16.0",
+    "express": "^4.17.1",
+    "express-router": "0.0.1"
   }
 }

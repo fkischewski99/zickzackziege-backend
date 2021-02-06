@@ -5,7 +5,7 @@ const consolidate = require('consolidate')
 
 
 let app = express()
-const initRouter = require("./routes/init-router.js")
+const initRouter = require('./routes/init-router')
 
 app.use(express.json)
 app.use(express.urlencoded({extended:false}))
