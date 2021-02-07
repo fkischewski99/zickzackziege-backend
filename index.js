@@ -1,3 +1,4 @@
+// Externe Module
 const express = require('express')
 const path = require('path')
 const consolidate = require('consolidate')
@@ -5,10 +6,11 @@ const consolidate = require('consolidate')
 
 
 let app = express()
+
+// Router
 const initRouter = require('./routes/init-router')
 
-app.use(express.json)
-app.use(express.urlencoded({extended:false}))
+// Router einbinden
 app.use("/init", initRouter)
 
 
