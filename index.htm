@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        var exampleSocket = new WebSocket("ws://localhost:3000/init", "protocolOne");
+
+        window.onload = () =>{
+            let btn = document.getElementById('btn');
+            btn.onclick = () => {
+                exampleSocket.onopen = () =>{
+                    exampleSocket.send("message", {id: 1});
+                }
+            }
+        }
+
+        exampleSocket.onmessage = (message) => {
+            console.log(message)
+        }
+
+
+    </script>
+</head>
+<body>
+    <input id="btn" type="submit" value="Connect"/>
+</body>
+</html>
