@@ -1,15 +1,7 @@
 const { response } = require('express');
 const express = require('express')
 
-
 const router = express.Router();
-
-router.websocket('/', function(info, cb, next) {
-	cb(function(socket) {
-        console.log(info, next)
-		socket.send('connected du hund!');
-	});
-});
 
 router.post('/', (req, res) => {
     //const players = req.body.players;

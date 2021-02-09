@@ -5,24 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
+    <script src="./node_modules/socket.io/client-dist/socket.io.js"></script>
     <script>
-        var exampleSocket = new WebSocket("ws://localhost:3000/init", "protocolOne");
+        var socket = io('http://localhost:3000/init', {
+            transports: ['websocket', 'polling', 'flashsocket']
+        });
 
-        window.onload = () =>{
-            let btn = document.getElementById('btn');
+        window.onload = () => {
+            let btn = document.getElementById('btn')
             btn.onclick = () => {
-                exampleSocket.onopen = () =>{
-                    exampleSocket.send("message", {id: 1});
-                }
+                let userId = parseInt(Math.random() * 10);
+                socket.emit('init', userId);
             }
         }
 
-        exampleSocket.onmessage = (message) => {
-            console.log(message)
-        }
-
-
+        socket.on('init successful', (data) => {
+            console.log(`Game with ID ${data.gameId} created`);
+        })
     </script>
 </head>
 <body>
