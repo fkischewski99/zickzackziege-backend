@@ -1,22 +1,36 @@
+const express = require('express')
+const app = express()
+
+const {createGame, joinGame, leaveGame, findGame} = require('./game')
+
 const players = [];
-let gameid = 0;
 
-// Join player to chat
-function playerJoin(id, playername, game) {
-  if(game === 'new'){
-    game = gameid;
-  }
-  console.log(game)
+app.get("/", (req, res ) => {
+    res.send({players: players})
+})
+
+
+// Join player to game an Create game if gameId is "new"
+function playerJoin(gameId, playerId) {
+  const player = findPlayer(playerId);
+  if(!player)
+    return null;
   
-  const player = { id, playername, game };
+  if(gameId === "new")
+    game = createGame();
+  else{
+    game = findGame(gameId)
+    if(!game)
+        return
+  }
 
-  players.push(player);
+  game.joinGame(player)
 
-  return player;
+  return game;
 }
 
 // Get current player
-function getCurrentplayer(id) {
+function findPlayer(id) {
   return players.find(player => player.id === id);
 }
 
@@ -36,7 +50,7 @@ function getgameplayers(gameid) {
 
 module.exports = {
   playerJoin,
-  getCurrentplayer,
+  getCurrentplayer: findPlayer,
   playerLeave,
   getgameplayers
 };

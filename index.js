@@ -8,7 +8,8 @@ const io = require('socket.io')(server);
 const {playerJoin, getCurrentplayer, playerLeave, getgameplayers} = require('./modules/players')
 const formatMessage = require('./modules/messages')
 
-const initRouter = require('./routes/init-router')
+const initRouter = require('./routes/init-router');
+const { join } = require('path');
 
 // Router einbinden
 app.use("/init", initRouter)
@@ -29,28 +30,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 // An die Route init binden
 io.of('/init').on('connection', (socket) => {
 
-    socket.on('joingame', ({ playername, game }) => {
-        const player = playerJoin(socket.id, playername, game);
-        console.log(player)
-    
-        socket.join(player.game);
+    socket.on('joingame', ({playerId, gameId}) => {
+        const game = joinGame({gameId, playerId});
+        socket.join(game.id);
     
         // Welcome current player
-        socket.emit('message', formatMessage(botName, player.game, `Welcome to Game ${player.game}`));
+        socket.emit('gameInfo', game);
     
         // Broadcast when a player connects
         socket.broadcast
-          .to(player.game)
+          .to(game.id)
           .emit(
-            'message',
-            formatMessage(botName,  player.game, `${player.playername} has joined the game`)
+            'playerJoined',
+             getCurrentplayer(playerId)
           );
     
         // Send players and game info
-        io.to(player.game).emit('gameplayers', {
-          game: player.game,
-          players: getgameplayers(player.game)
-        });
+        //io.to(game.id).emit('gameplayers', {
+        //  game: player.game,
+        //  players: getgameplayers(player.game)
+        //});
       });
     
       // Listen for chatMessage
