@@ -5,10 +5,21 @@ const {createGame, joinGame, leaveGame, findGame} = require('./game')
 
 const players = [];
 
-app.get("/", (req, res ) => {
-    res.send({players: players})
-})
+function createPlayer(player){
+    console.log(player)
+    if(!validatePlayer(player))
+        return null
+    const createdPlayer = {
+        id: players.length + 1,
+        name: player.name
+    }
+    players.push(createdPlayer)
+    return createdPlayer
+}
 
+function getPlayers(){
+    return players;
+}
 
 // Join player to game an Create game if gameId is "new"
 function playerJoin(gameId, playerId) {
@@ -43,14 +54,23 @@ function playerLeave(id) {
   }
 }
 
+function validatePlayer(player){
+    if(!player || !player.hasOwnProperty("name"))
+        return false
+    return true;
+}
+
 // Get game players
 function getgameplayers(gameid) {
   return players.filter(player => player.game === gameid);
 }
 
 module.exports = {
+  getPlayers,
+  createPlayer,
   playerJoin,
-  getCurrentplayer: findPlayer,
+  findPlayer,
   playerLeave,
-  getgameplayers
+  getgameplayers,
+  validatePlayer
 };

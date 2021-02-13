@@ -7,6 +7,7 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const {playerJoin, getCurrentplayer, playerLeave, getgameplayers} = require('./modules/players')
 const formatMessage = require('./modules/messages')
+const gamesRouter = require('./routes/game-routes')
 
 const initRouter = require('./routes/init-router');
 const { join } = require('path');
@@ -26,6 +27,7 @@ const botName = 'Server';
 
 //Load index.html on localhost:3000
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/player', gamesRouter)
 
 // An die Route init binden
 io.of('/init').on('connection', (socket) => {
