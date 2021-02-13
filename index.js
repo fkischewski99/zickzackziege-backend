@@ -9,12 +9,8 @@ const {playerJoin, findPlayer, playerLeave, getgameplayers} = require('./modules
 const formatMessage = require('./modules/messages')
 const gamesRouter = require('./routes/game-routes')
 
-const initRouter = require('./routes/init-router');
 const { join } = require('path');
 const { joinGame } = require('./modules/game');
-
-// Router einbinden
-app.use("/init", initRouter)
 
 //Bind Port 3000 to Server if no os Port exists
 const PORT = process.env.PORT || 3000

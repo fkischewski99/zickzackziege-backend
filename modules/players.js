@@ -6,15 +6,19 @@ const players = [];
 function createPlayer(player){
     if(!validatePlayer(player))
         return null
+
     const createdPlayer = {
         id: players.length + 1,
         name: player.name
     }
+
     players.push(createdPlayer)
+    console.log(players)
     return createdPlayer
 }
 
 function getPlayers(){
+    console.log(players)
     return players;
 }
 
