@@ -1,9 +1,9 @@
-const socket = io('/init');
-playername = 'fred';
-game = '1';
+const socket = io('/playGame');
+playerId = 1
+gameId = 'new';
 
 // Join chatroom
-socket.emit('joingame', { playername, game });
+socket.emit('joinGame', { playerId, gameId });
 
 // Get room and users
 socket.on('roomUsers', ({ room, users }) => {
@@ -16,6 +16,10 @@ socket.on('message', message => {
   console.log(message);
   outputMessage(message);
 });
+
+socket.on('gameInfo', game => {
+  console.log(game)
+})
 
 // Output message to DOM
 function outputMessage(message) {

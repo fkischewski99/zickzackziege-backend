@@ -1,12 +1,9 @@
 const express = require('express')
 const app = express()
 
-const {createGame, joinGame, leaveGame, findGame} = require('./game')
-
 const players = [];
 
 function createPlayer(player){
-    console.log(player)
     if(!validatePlayer(player))
         return null
     const createdPlayer = {
@@ -23,19 +20,7 @@ function getPlayers(){
 
 // Join player to game an Create game if gameId is "new"
 function playerJoin(gameId, playerId) {
-  const player = findPlayer(playerId);
-  if(!player)
-    return null;
   
-  if(gameId === "new")
-    game = createGame();
-  else{
-    game = findGame(gameId)
-    if(!game)
-        return
-  }
-
-  game.joinGame(player)
 
   return game;
 }

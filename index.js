@@ -5,12 +5,13 @@ const path = require('path')
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-const {playerJoin, getCurrentplayer, playerLeave, getgameplayers} = require('./modules/players')
+const {playerJoin, findPlayer, playerLeave, getgameplayers} = require('./modules/players')
 const formatMessage = require('./modules/messages')
 const gamesRouter = require('./routes/game-routes')
 
 const initRouter = require('./routes/init-router');
 const { join } = require('path');
+const { joinGame } = require('./modules/game');
 
 // Router einbinden
 app.use("/init", initRouter)
@@ -30,10 +31,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/player', gamesRouter)
 
 // An die Route init binden
-io.of('/init').on('connection', (socket) => {
+io.of('/playGame').on('connection', (socket) => {
 
-    socket.on('joingame', ({playerId, gameId}) => {
-        const game = joinGame({gameId, playerId});
+    socket.on('joinGame', ({playerId, gameId}) => {
+        const game = joinGame(playerId, gameId);
         socket.join(game.id);
     
         // Welcome current player
@@ -44,7 +45,7 @@ io.of('/init').on('connection', (socket) => {
           .to(game.id)
           .emit(
             'playerJoined',
-             getCurrentplayer(playerId)
+             findPlayer(playerId)
           );
     
         // Send players and game info
