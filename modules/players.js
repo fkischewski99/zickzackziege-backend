@@ -13,20 +13,12 @@ function createPlayer(player){
     }
 
     players.push(createdPlayer)
-    console.log(players)
     return createdPlayer
 }
 
 function getPlayers(){
     console.log(players)
     return players;
-}
-
-// Join player to game an Create game if gameId is "new"
-function playerJoin(gameId, playerId) {
-  
-
-  return game;
 }
 
 // Get current player
@@ -57,7 +49,6 @@ function getgameplayers(gameid) {
 module.exports = {
   getPlayers,
   createPlayer,
-  playerJoin,
   findPlayer,
   playerLeave,
   getgameplayers,
