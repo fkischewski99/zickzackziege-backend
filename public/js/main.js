@@ -1,36 +1,17 @@
 const socket = io('/playGame');
+const Constants = require('../../shared/constants')
+
 playerId = 1
 gameId = 'new';
 
 // Join chatroom
-socket.emit('joinGame', { playerId, gameId });
-
-// Get room and users
-socket.on('roomUsers', ({ room, users }) => {
-  outputRoomName(room);
-  outputUsers(users);
-});
+socket.emit(Constants.MSG_TYPES.JOIN_GAME, { playerId, gameId });
 
 // Message from server
-socket.on('message', message => {
+socket.on(Constants.MSG_TYPES.GAME_INFO, message => {
   console.log(message);
-  outputMessage(message);
 });
 
-socket.on('gameInfo', game => {
+socket.on(Constants.MSG_TYPES.GAME_UPDATE, game => {
   console.log(game)
 })
-
-// Output message to DOM
-function outputMessage(message) {
-
-}
-
-// Add room name to DOM
-function outputRoomName(room) {
-  roomName.innerText = room;
-}
-
-// Add users to DOM
-function outputUsers(users) {
- }
