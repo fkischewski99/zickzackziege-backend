@@ -1,5 +1,12 @@
-const socket = io('/playGame');
-const Constants = require('../../shared/constants')
+const socket = io('/')
+
+const Constants = {
+    MSG_TYPES: {
+        JOIN_GAME: 'join_game',
+        GAME_INFO: 'game_info',
+        GAME_UPDATE: 'game_update'
+    }
+}
 
 playerId = 1
 gameId = 'new';
