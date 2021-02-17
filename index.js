@@ -11,7 +11,7 @@ const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 const {socketIO} = require('./modules/socket')
 
-const gamesRouter = require('./routes/game-router')
+const playerRouter = require('./routes/player-router')
 
 //Bind Port 3000 to Server if no os Port exist
 server.listen(config.get("PORT"), () => {
@@ -20,6 +20,6 @@ server.listen(config.get("PORT"), () => {
 
 //Load index.html on localhost:3000
 app.use(express.static(path.join(__dirname, 'public')))
-app.use('/api/player', gamesRouter)
+app.use('/api/player', playerRouter)
 
 socketIO(io)

@@ -1,4 +1,6 @@
 const Constants = require('../shared/constants')
+const {findPlayer, playerLeave, getgameplayers} = require('./players')
+const {joinGame} = require('./game')
 
 // An die Route init binden
 
