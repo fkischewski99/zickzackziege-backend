@@ -1,5 +1,10 @@
 // Externe Module
 // Setup basic express server
+
+/*
+    DEBUG Module einbinden???
+*/
+
 const express = require('express')
 const path = require('path')
 
@@ -13,9 +18,11 @@ const {socketIO} = require('./modules/socket')
 
 const playerRouter = require('./routes/player-router')
 
+
 //Bind Port 3000 to Server if no os Port exist
-server.listen(config.get("PORT"), () => {
-    console.log(`ZickZackZiege listens on Port ${config.get("PORT")}`)
+const PORT = process.env.PORT || config.get("PORT")
+server.listen(PORT, () => {
+    console.log(`ZickZackZiege listens on Port ${PORT}`)
 })
 
 //Load index.html on localhost:3000

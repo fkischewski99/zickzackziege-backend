@@ -2,6 +2,28 @@ const {findPlayer} = require('./players')
 
 const games = [];
 
+class Game {
+  constructor(numberOfPlayers){
+    this.numberOfPlayers = numberOfPlayers
+    this.id = games.length +1
+    this.players = {}
+    this.moves = {}
+  }
+
+  gameReadyToStart(){
+    return this.numberOfPlayers === this.players.length
+  }
+
+  gameFinished(){
+    return false
+  }
+
+  get numberOfPlayers(){
+    return this.numberOfPlayers
+  }
+
+}
+
 function createGame(){
     game = {
         id: games.length +1,
@@ -20,9 +42,8 @@ function findGame(gameId){
 function joinGame(playerId, gameId){
   const player = findPlayer(playerId)
   if(!player)
-    //return null;
-  
-  console.log(gameId)
+    return null;
+
   if(gameId == 'new'){
     game = createGame();
   }else{
