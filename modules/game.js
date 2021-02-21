@@ -4,12 +4,12 @@ const games = [];
 
 class Game {
   constructor(numberOfPlayers){
-    this.numberOfPlayers = numberOfPlayers
+    this._numberOfPlayers = numberOfPlayers
     this.id = games.length +1
-    this.players = {}
-    this.moves = {}
+    this.players = []
+    this.moves = []
   }
-
+  
   gameReadyToStart(){
     return this.numberOfPlayers === this.players.length
   }
@@ -22,7 +22,15 @@ class Game {
     return this.numberOfPlayers
   }
 
+  set numberOfPlayers(numberOfPlayers){
+    this.numberOfPlayers =numberOfPlayers
+  }
+
 }
+
+let game = new Game(9)
+games.push(game)
+  
 
 function createGame(){
     game = {
@@ -44,13 +52,9 @@ function joinGame(playerId, gameId){
   if(!player)
     return null;
 
-  if(gameId == 'new'){
-    game = createGame();
-  }else{
-    game = findGame(gameId)
-    if(!game)
-        return
-   }
+  game = findGame(gameId)
+  if(!game)
+    return
 
    game.players.push(player)
    return game;

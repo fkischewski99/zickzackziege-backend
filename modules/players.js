@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 
-const players = [];
+const players = [{id: 1, name: "Fred"}];
 
 function createPlayer(player){
     if(!validatePlayer(player))
