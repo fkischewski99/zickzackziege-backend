@@ -8,7 +8,7 @@ function createPlayer(player){
         return null
 
     const createdPlayer = {
-        id: players.length + 1,
+        id: player.id,
         name: player.name
     }
 

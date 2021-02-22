@@ -4,11 +4,12 @@ const { createGame } = require('../modules/game');
 const {createPlayer, getPlayers, findPlayer} = require("../modules/players")
 
 const router = express.Router()
-router.use(express.json())
 
 router.post('/', (req, res) => {
-    console.log(req.body)
-    const player = req.body.player;
+    let player = req.body.player;
+    req.session.player = player
+    console.log(`Login Player with ID ${req.session.player.id}`);
+
     const createdPlayer = createPlayer(player)
     if(createdPlayer)
         res.status(200).send(createdPlayer)

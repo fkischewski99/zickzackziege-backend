@@ -1,3 +1,4 @@
+const GameController = require('../database/GameController')
 const {findPlayer} = require('./players')
 
 const games = [];
@@ -24,9 +25,10 @@ class Game {
 
 }
 
-function createGame(){
-    game = {
-        id: games.length +1,
+async function createGame(){
+    let gameId = await GameController.createGame();
+    let game = {
+        id: gameId,
         players: [],
         moves: []
     }
@@ -41,10 +43,14 @@ function findGame(gameId){
 
 function joinGame(playerId, gameId){
   const player = findPlayer(playerId)
-  if(!player)
-    return null;
+  if(!player) {
+      console.log('Spieler nicht gefunden');
+      return;
+  }
 
-  if(gameId == 'new'){
+  let game = undefined;
+
+  if(gameId === 'new'){
     game = createGame();
   }else{
     game = findGame(gameId)

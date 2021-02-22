@@ -12,18 +12,29 @@ function socketIO(socket, options){
 
   io = socket
 
-  io.of('/').on('connection', (socket) => {
+  io.on('connection', (socket) => {
 
-      socket.on(Constants.MSG_TYPES.CREATE_GAME,({numberOfPlayers}) => {
-        const game = createGame(numberOfPlayers)
-        socket.join(game.id)
-        socket.emit(Constants.MSG_TYPES.GAME_INFO, game)
+      socket.on(Constants.MSG_TYPES.CREATE_GAME, async ({numberOfPlayers}) => {
+          console.log('Neues Spiel erstellen.');
+          const game = await createGame(numberOfPlayers);
+          socket.join(game.id)
+          socket.emit(Constants.MSG_TYPES.GAME_INFO, game)
       })
 
-      socket.on(Constants.MSG_TYPES.JOIN_GAME, ({playerId, gameId}) => {
+      socket.on(Constants.MSG_TYPES.JOIN_GAME, ({gameId}) => {
+          console.log(`Spiel mit der ID ${gameId} beitreten`);
+          // PlayerId ist in der Session hinterlegt.
+          let playerId = socket.request.session.player.id;
+
+          // Der Spieler mit der ID playerId tritt dem Spiel gameId bei.
           const game = joinGame(playerId, gameId);
+
+          if (!game) {
+              console.log('Spiel nicht gefunden')
+              return
+          }
+
           socket.join(game.id);
-      
           // Welcome current player
           socket.emit(Constants.MSG_TYPES.GAME_INFO, game);
       

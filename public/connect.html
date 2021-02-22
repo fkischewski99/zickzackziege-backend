@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Connect</title>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/connect.js"></script>
+</head>
+<body>
+    <form>
+        <label for="numberPlayers">Anzahl Spieler:</label>
+        <input id="numberPlayers" type="text">
+        <input id="createBtn" type="submit" value="Erstellen"/>
+    </form>
+    <form>
+        <label for="gameId">GameID:</label>
+        <input id="gameId" type="number">
+        <input id="joinBtn" type="submit" value="Beitreten"/>
+    </form>
+</body>
+</html>
