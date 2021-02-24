@@ -8,15 +8,26 @@
     <script src="js/connect.js"></script>
 </head>
 <body>
-    <form>
-        <label for="numberPlayers">Anzahl Spieler:</label>
-        <input id="numberPlayers" type="text">
-        <input id="createBtn" type="submit" value="Erstellen"/>
-    </form>
-    <form>
-        <label for="gameId">GameID:</label>
-        <input id="gameId" type="number">
-        <input id="joinBtn" type="submit" value="Beitreten"/>
-    </form>
+<div>
+    <label for="numberPlayers">Anzahl Spieler:</label>
+    <input id="numberPlayers" type="text">
+    <input id="createBtn" type="button" value="Erstellen"/>
+</div>
+<div>
+    <label for="gameId">GameID:</label>
+    <input id="gameId" type="number">
+    <input id="joinBtn" type="button" value="Beitreten"/>
+</div>
+<div>
+    <label for="createdGame">Nachrichten: </label>
+    <textarea id="createdGame" rows="1"></textarea>
+</div>
 </body>
+
+<style>
+    textarea {
+        resize: none;
+        width: 100vw;
+    }
+</style>
 </html>
